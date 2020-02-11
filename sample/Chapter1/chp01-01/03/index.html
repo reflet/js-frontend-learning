@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>prototype</title>
+    <style type="text/css">
+      pre { border:solid 1px #ccc; background-color:#eee; }
+    </style>
+  </head>
+  <body>
+    <script src="app.js"></script>
+    <h1>Chapter-01-01 03</h1>
+    <p>prototypeプロパティを使ったメモリ節約</p>
+    <pre>
+      <code>
+        function Human(name) {
+          this.name = name;
+        }
+
+        Human.prototype.greet = function () {
+          console.log("My name is " + this.name);
+        };
+
+        var alice = new Human("Alice");
+        alice.greet(); // My name is Alice
+
+        var bob = new Human("Bob");
+        bob.greet(); // My name is Bob
+      </code>
+    </pre>
+  </body>
+</html>

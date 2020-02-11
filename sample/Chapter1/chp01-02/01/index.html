@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>変数のスコープ（１）</title>
+    <style type="text/css">
+      pre { border:solid 1px #ccc; background-color:#eee; }
+    </style>
+  </head>
+  <body>
+    <script src="app.js"></script>
+    <h1>Chapter-01-02 01</h1>
+    <p>変数のスコープ（１）</p>
+    <pre>
+      <code>
+        var a = 10;
+        function add() {
+          var b = 5;  // 関数内で有効な変数
+          console.log(a + b);
+        }
+
+        add(); // 15
+        console.log(a + b); // Uncaught ReferenceError: b is not defined
+      </code>
+    </pre>
+  </body>
+</html>

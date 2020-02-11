@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>変数のスコープ（２）</title>
+    <style type="text/css">
+      pre { border:solid 1px #ccc; background-color:#eee; }
+    </style>
+  </head>
+  <body>
+    <script src="app.js"></script>
+    <h1>Chapter-01-02 02</h1>
+    <p>変数のスコープ（２）</p>
+    <pre>
+      <code>
+        var a = 10;
+        var b = 15;
+        function add() {
+          a = 5;      // グローバル変数
+          var b = 5;  // 関数内で有効な変数
+          console.log(a + b);
+        }
+
+        add(); // 10
+        console.log(a); // 5
+        console.log(b); // 15
+      </code>
+    </pre>
+  </body>
+</html>

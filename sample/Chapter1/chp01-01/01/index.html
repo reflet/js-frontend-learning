@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>prototype</title>
+    <style type="text/css">
+      pre { border:solid 1px #ccc; background-color:#eee; }
+    </style>
+  </head>
+  <body>
+    <script src="./app.js"></script>
+    <h1>Chapter-01-01 01</h1>
+    <p>prototypeプロパティについて</p>
+    <pre>
+      <code>
+      function Human(name) {
+        this.name = name;
+      }
+
+      Human.prototype.greet = function() {
+        console.log("Hello " + this.name);
+      };
+
+      var mike = new Human("Mike");
+      mike.greet(); // Hello Mike
+      </code>
+    </pre>
+  </body>
+</html>

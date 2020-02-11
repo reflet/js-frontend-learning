@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>リアルタイムバリデーション（６）</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <h1>リアルタイムバリデーション（６）</h1>
+        <p>onValidate, onInvalidメソッドを実装する</p>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label for="account">アカウントを作成</label>
+        </div>
+        <div class="col">
+          <input type="text" placeholder="4文字以上8文字以内で入力してください" id="account"
+                 data-minlength="4"
+                 data-maxlength="8"
+                 required>
+          <ul>
+            <li data-error="required">必須項目です</li>
+            <li data-error="minlength">4文字以上で入力してください</li>
+            <li data-error="maxlength">8文字以内で入力してください</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label for="password">パスワードを作成</label>
+        </div>
+        <div class="col">
+          <input type="text" placeholder="4文字以上8文字以内で入力してください" id="password"
+                 data-minlength="4"
+                 data-maxlength="8"
+                 required>
+          <ul>
+            <li data-error="required">必須項目です</li>
+            <li data-error="minlength">4文字以上で入力してください</li>
+            <li data-error="maxlength">8文字以内で入力してください</li>
+          </ul>
+        </div>
+      </div>
+
+      <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="scripts/app.js"></script>
+
+      <div class="row">
+<pre><code>
+  function AppView(el) {
+    this.initialize(el);
+    this.handleEvents();
+  }
+
+  AppView.prototype.initialize = function(el) {
+    this.$el = $(el);
+    var obj = this.$el.data();
+    if (this.$el.prop("required")) {
+      obj["required"] = true;
+    }
+
+    this.model = new AppModel(obj);
+  };
+
+  AppView.prototype.handleEvents = function() {
+    var self = this;
+
+    this.$el.on("keyup", function(e) {
+      self.onKeyup(e);
+    });
+
+    this.model.on("valid", function() {
+      self.onValid();
+    });
+
+    this.model.on("invalid", function() {
+      self.onInvalid();
+    });
+  };
+
+  AppView.prototype.onKeyup = function(e) {
+    var $target = $(e.currentTarget);
+    this.model.set($target.val());
+  };
+
+  AppView.prototype.onValid = function() {
+    this.$el.removeClass("error");
+    this.$list.hide();
+  };
+
+  AppView.prototype.onInvalid = function() {
+    var self = this;
+    this.$el.addClass("error");
+    this.$list.hide();
+
+    $.each(this.model.errors, function(index, val) {
+      self.$list.filter("[data-error=\"" + val + "\"]").show();
+    });
+  };
+
+  $("input").each(function() {
+    new AppView(this);
+  });
+
+</code></pre>
+      </div>
+    </div>
+  </body>
+</html>

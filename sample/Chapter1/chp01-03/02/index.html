@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>オブザーバー（２）</title>
+    <style type="text/css">
+      p { padding:0; margin:0; }
+      pre { border:solid 1px #ccc; background-color:#eee; }
+    </style>
+  </head>
+  <body>
+    <script src="app.js"></script>
+    <h1>Chapter-01-03 02</h1>
+    <p>オブザーバー（２）</p>
+    <p>※ 複数のイベントに対応する</p>
+    <pre>
+      <code>
+        function Observer() {
+          this.listeners = {};
+        }
+        Observer.prototype.on = function(event, func) {
+          if (! this.listeners[event] ) {
+            this.listeners[event] = [];
+          }
+          this.listeners[event].push(func);
+        };
+        Observer.prototype.off = function(event, func) {
+          var ref = this.listeners[event],
+              len = ref.length;
+          for (var i = 0; i < len; i++) {
+            var listener = ref[i];
+            if (listener === func) {
+              ref.splice(i, 1);
+            }
+          }
+        };
+        Observer.prototype.trigger = function(event) {
+          var ref = this.listeners[event];
+          for (var i = 0, len = ref.length; i < len; i++) {
+            var listener = ref[i];
+            if(typeof listener === "function") listener();
+          }
+        };
+
+        var observer = new Observer();
+        var greet = function () {
+          console.log("Good morning");
+        };
+        observer.on("morning", greet);
+        observer.trigger("morning"); //Good morning
+
+        var sayEvening = function () {
+        console.log("Good evening");
+        };
+        observer.on("evening", sayEvening);
+        observer.trigger("evening"); // Good evening
+      </code>
+    </pre>
+  </body>
+</html>

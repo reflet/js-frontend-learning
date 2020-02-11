@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>thisを操作する（bind）</title>
+    <style type="text/css">
+      p { padding:0; margin:0; }
+      pre { border:solid 1px #ccc; background-color:#eee; }
+    </style>
+  </head>
+  <body>
+    <script src="app.js"></script>
+    <h1>Chapter-01-04 04</h1>
+    <p>thisを操作する</p>
+    <p>※ bindメソッド</p>
+    <pre>
+      <code>
+        function Human(name) {
+          this.name = name;
+        }
+        function greet(arg1, arg2) {
+          console.log(arg1 + this.name + arg2);
+        }
+
+        var mike = new Human("Mike");
+        var greetMorning = greet.bind(mike);
+        greetMorning("Good Morning　", "!!"); // Good Morning　Mike!!
+      </code>
+    </pre>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>リアルタイムバリデーション（１）</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="page-header">
+      <h1>リアルタイムバリデーション（１）</h1>
+      <p>フォームを作成する</p>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <label for="account">アカウントを作成</label>
+      </div>
+      <div class="col">
+        <input type="text" value="" placeholder="4文字以上8文字以内で入力してください"
+               data-minlength="4"
+               data-maxlength="8"
+               id="account"
+               required>
+        <ul>
+          <li data-error="required">必須項目です</li>
+          <li data-error="minlength">4文字以上で入力してください</li>
+          <li data-error="maxlength">8文字以内で入力してください</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <label for="password">パスワードを作成</label>
+      </div>
+      <div class="col">
+        <input type="text" value="" placeholder="4文字以上8文字以内で入力してください"
+               data-minlength="4"
+               data-maxlength="8"
+               id="password"
+               required>
+        <ul>
+          <li data-error="required">必須項目です</li>
+          <li data-error="minlength">4文字以上で入力してください</li>
+          <li data-error="maxlength">8文字以内で入力してください</li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="scripts/app.js"></script>
+
+    <div class="row">
+<pre><code>
+  // Modelのコンストラクタ
+  function AppModel(attrs) {
+    this.val = "";
+    this.listeners = {
+      valid: [],
+      invalid: []
+    };
+  }
+
+  // Modelのオブザーバー機能
+  AppModel.prototype.on = function(event, func) {
+    this.listeners[event].push(func);
+  };
+  AppModel.prototype.trigger = function(event) {
+    $.each(this.listeners[event], function() {
+      this();
+    });
+  };
+
+</code></pre>
+    </div>
+  </div>
+</body>
+</html>
